@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var greenColor: ReusableSlider!
     var blueColor: ReusableSlider!
     var segmentControl: UISegmentedControl!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,28 +32,28 @@ class ViewController: UIViewController {
         constructHierarchy()
         activateConstraint()
     }
-
+    
     func chnaged(value: Float) {
-        titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue())
+        titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue)
         titleLabel.textColor = .init(
-            red: redColor.sliderValue() / CGFloat(255),
-            green: greenColor.sliderValue() / CGFloat(255),
-            blue: blueColor.sliderValue() / CGFloat(255),
+            red: redColor.sliderValue / CGFloat(255),
+            green: greenColor.sliderValue / CGFloat(255),
+            blue: blueColor.sliderValue / CGFloat(255),
             alpha: 1)
     }
     
     @objc func tappedSegmendControl() {
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue(), weight: .ultraLight)
+            titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue, weight: .ultraLight)
         case 1:
-            titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue(), weight: .light)
+            titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue, weight: .light)
         default:
-            titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue(), weight: .heavy)
+            titleLabel.font = UIFont.systemFont(ofSize: fontScaleLabel.sliderValue, weight: .heavy)
         }
     }
 }
-    
+
 extension ViewController {
     
     func initTitleLabel() {
@@ -71,17 +71,17 @@ extension ViewController {
     
     func initFontScale() {
         fontScaleLabel = ReusableSlider()
-        fontScaleLabel.setName("Font Scale")
+        fontScaleLabel.setName = "Font Scale"
         fontScaleLabel.setMinAndMaxValue(10, 100)
-        fontScaleLabel.setSliderValue(20)
+        fontScaleLabel.setSliderValue = 20
         fontScaleLabel.translatesAutoresizingMaskIntoConstraints = false
-    
+        
         fontScaleLabel.didValueChanged = chnaged
     }
     
     func initRedColorSlider() {
         redColor = ReusableSlider()
-        redColor.setName("Red color")
+        redColor.setName = "Red color"
         redColor.setMinAndMaxValue(0, 255)
         redColor.setTinyColor(.red)
         redColor.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +91,7 @@ extension ViewController {
     
     func initGreenColorSlider() {
         greenColor = ReusableSlider()
-        greenColor.setName("Green color")
+        greenColor.setName = "Green color"
         greenColor.setMinAndMaxValue(0, 255)
         greenColor.setTinyColor(.green)
         greenColor.translatesAutoresizingMaskIntoConstraints = false
@@ -101,7 +101,7 @@ extension ViewController {
     
     func initBlueColorSlider() {
         blueColor = ReusableSlider()
-        blueColor.setName("Blue color")
+        blueColor.setName = "Blue color"
         blueColor.setMinAndMaxValue(0, 255)
         blueColor.setTinyColor(.blue)
         blueColor.translatesAutoresizingMaskIntoConstraints = false

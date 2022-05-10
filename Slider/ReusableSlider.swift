@@ -17,20 +17,45 @@ class ReusableSlider: UIStackView {
     private var sliderValueName: UILabel!
     private var sliderMinValueLabel: UILabel!
     private var sliderMaxValueLabel: UILabel!
-    var didValueChanged: (Float) -> Void = {_ in }
+    
+    var setName: String? {
+        get {
+            return self.setName
+        }
+        set {
+            sliderNameLabel.text = newValue
+        }
+    }
+    var setSliderValue: Int {
+        get {
+            return self.setSliderValue
+        }
+        set {
+            return slider.value = Float(newValue)
+        }
+    }
+    
+    
+    var sliderValue: CGFloat {
+        get {
+            CGFloat(slider.value)
+        }
+    }
+    
+    var didValueChanged: ((Float) -> Void)!
     
     override init(frame: CGRect) {
         super .init(frame: frame)
         axis = .horizontal
         spacing = 10
-            
+        
         initSliderNameLabel()
         initViewForSlider()
         initSlider()
         initSliderValueName()
         initSliderMinValueLabel()
         initSliderMaxValueLabel()
-        constructHierarchy() 
+        constructHierarchy()
         activateConstraint()
     }
     
@@ -47,13 +72,9 @@ class ReusableSlider: UIStackView {
         activateConstraint()
     }
     
-    @objc func sliderTapped() {
+    @objc func sliderSlided() {
         sliderValueName.text = "\(Int(slider.value))"
         didValueChanged(slider.value)
-    }
-    
-    func setName(_ name: String) {
-        sliderNameLabel.text = "\(name):"
     }
     
     func setMinAndMaxValue(_ min: Int, _ max: Int) {
@@ -67,17 +88,9 @@ class ReusableSlider: UIStackView {
         slider.thumbTintColor = color
         slider.maximumTrackTintColor = color
     }
-    
-    func setSliderValue(_ value: Int) {
-        slider.value = Float(value)
-    }
-    
-    func sliderValue() -> CGFloat {
-        return CGFloat(slider.value)
-    }
 }
 
-private extension ReusableSlider {
+extension ReusableSlider {
     
     func initSliderNameLabel() {
         sliderNameLabel = UILabel()
@@ -112,7 +125,7 @@ private extension ReusableSlider {
         slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         
-        slider.addTarget(self, action: #selector(sliderTapped), for: .valueChanged)
+        slider.addTarget(self, action: #selector(sliderSlided), for: .valueChanged)
     }
     
     func constructHierarchy() {
